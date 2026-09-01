@@ -8,6 +8,8 @@ Assets → adversaries → threat board → attack surfaces and vectors → atta
 The visual theme is a light **Intelligence Studio / evidence-board** design. Animated network signals, moving evidence connections, card reveals, ambient motion and a live SOC sequence make the site feel different from the earlier quiz/arcade websites.
 
 ## Vercel
-- Framework: Vite
 - Build command: `npm run build`
 - Output directory: `dist`
+- The build now uses `node build.mjs` to reconstruct the final static HTML at deploy time. No browser-side fetch/decompression is required.
+
+Deployment refresh marker: 2026-09-01 14:15 AWST
