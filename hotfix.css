@@ -1,0 +1,105 @@
+/* ND-W7 responsive layout + visible animation hotfix */
+
+/* The theme override accidentally changed .asset from absolute to relative. */
+.assetmap{
+  isolation:isolate;
+  min-height:430px;
+  overflow:hidden;
+  background:
+    linear-gradient(rgba(49,87,213,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(49,87,213,.035) 1px,transparent 1px),
+    linear-gradient(180deg,#f8fbfe,#edf5f9)!important;
+  background-size:28px 28px,28px 28px,100% 100%!important;
+  animation:warGridMove 10s linear infinite;
+}
+@keyframes warGridMove{to{background-position:28px 28px,28px 28px,0 0}}
+
+.asset{
+  position:absolute!important;
+  width:auto!important;
+  min-width:138px;
+  max-width:190px;
+  z-index:4;
+  white-space:normal;
+  line-height:1.25;
+  transform-origin:center;
+  animation:assetFloat 4s ease-in-out infinite;
+}
+.asset.a1{animation-delay:0s}.asset.a2{animation-delay:-.65s}.asset.a3{animation-delay:-1.3s}
+.asset.a4{animation-delay:-1.95s}.asset.a5{animation-delay:-2.6s}.asset.a6{animation-delay:-3.25s}
+@keyframes assetFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.asset:hover{animation-play-state:paused;transform:translateY(-5px) scale(1.035)}
+.asset.active{
+  animation:assetActivePulse 1.15s ease-in-out infinite alternate;
+  border-color:#3157d5!important;
+  box-shadow:0 0 0 5px rgba(49,87,213,.10),0 14px 34px rgba(31,73,105,.14)!important;
+}
+@keyframes assetActivePulse{from{transform:translateY(-2px) scale(1)}to{transform:translateY(-7px) scale(1.035)}}
+
+/* Actual connector class in the HTML is .aline, not .assetline. */
+.aline{
+  position:absolute;
+  z-index:2;
+  height:3px!important;
+  background:linear-gradient(90deg,transparent 0%,#73d5f7 25%,#3157d5 52%,#2baa7b 75%,transparent 100%)!important;
+  background-size:220% 100%!important;
+  opacity:.9;
+  animation:flowLineHotfix 1.6s linear infinite!important;
+  overflow:visible;
+  transform-origin:left center;
+}
+@keyframes flowLineHotfix{to{background-position:220% 0}}
+.aline::after{
+  content:"";
+  position:absolute;
+  left:0;
+  top:50%;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#3157d5;
+  box-shadow:0 0 0 5px rgba(49,87,213,.12),0 0 18px rgba(49,87,213,.55);
+  transform:translate(-50%,-50%);
+  animation:packetFlow 2.1s ease-in-out infinite;
+}
+.al2::after{animation-delay:-.55s;background:#2baa7b}.al3::after{animation-delay:-1.05s;background:#e2a52c}.al4::after{animation-delay:-1.55s;background:#6f63d8}
+@keyframes packetFlow{0%{left:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:100%;opacity:0}}
+.assetmap::before{
+  content:"LIVE ASSET TRAFFIC";
+  position:absolute;left:16px;bottom:13px;z-index:6;
+  padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.9);border:1px solid #d7e4ec;
+  color:#2c6c91;font-size:.62rem;font-weight:900;letter-spacing:.08em;box-shadow:0 7px 20px rgba(25,54,88,.06)
+}
+.assetmap::after{
+  content:"";position:absolute;right:17px;bottom:18px;width:9px;height:9px;border-radius:50%;background:#2baa7b;z-index:6;
+  box-shadow:0 0 0 0 rgba(43,170,123,.45);animation:livePulse 1.5s infinite
+}
+@keyframes livePulse{70%{box-shadow:0 0 0 11px rgba(43,170,123,0)}100%{box-shadow:0 0 0 0 rgba(43,170,123,0)}}
+
+/* Make motion visible throughout the War Room, not only in the hero. */
+.console{animation:consoleFloat 5.2s ease-in-out infinite}
+@keyframes consoleFloat{0%,100%{translate:0 0}50%{translate:0 -8px}}
+.netmap .node{animation:nodeBreathe 3.3s ease-in-out infinite alternate}
+.netmap .node:nth-of-type(2){animation-delay:-.7s}.netmap .node:nth-of-type(3){animation-delay:-1.4s}.netmap .node:nth-of-type(4){animation-delay:-2.1s}.netmap .node:nth-of-type(5){animation-delay:-2.8s}
+@keyframes nodeBreathe{to{transform:translateY(-5px);box-shadow:0 10px 26px rgba(49,87,213,.14)}}
+.risk b{animation:riskPulse 1.7s ease-in-out infinite alternate}
+@keyframes riskPulse{to{transform:scale(1.08);text-shadow:0 0 16px rgba(227,95,95,.28)}}
+.panel-top{position:relative;overflow:hidden}
+.panel-top::after{content:"";position:absolute;left:-35%;bottom:0;width:30%;height:2px;background:linear-gradient(90deg,transparent,#3157d5,#2baa7b,transparent);animation:panelScan 4.6s linear infinite}
+@keyframes panelScan{to{left:115%}}
+.pnode.active,.folder.active,.vector.sel,.method.active{animation:selectedGlow 1.5s ease-in-out infinite alternate}
+@keyframes selectedGlow{to{box-shadow:0 0 0 4px rgba(49,87,213,.07),0 12px 26px rgba(31,73,105,.09)}}
+.event.active{animation:eventPulse 1.8s ease-in-out infinite alternate}
+@keyframes eventPulse{to{box-shadow:0 0 0 4px rgba(111,99,216,.06),0 12px 28px rgba(46,65,94,.08)}}
+.tree-root{animation:rootPulse 2.4s ease-in-out infinite}
+@keyframes rootPulse{50%{box-shadow:0 0 0 8px rgba(227,95,95,.07)}}
+.soc-head span:last-child{animation:statusBlink 1.2s steps(2,end) infinite}
+@keyframes statusBlink{50%{opacity:.45}}
+
+@media(max-width:780px){
+  .asset{min-width:128px;max-width:160px}
+  .assetmap{min-height:560px}
+}
+@media(prefers-reduced-motion:reduce){
+  .assetmap,.asset,.aline,.aline::after,.assetmap::after,.console,.netmap .node,.risk b,.panel-top::after,.pnode.active,.folder.active,.vector.sel,.method.active,.event.active,.tree-root,.soc-head span:last-child{animation:none!important}
+}
